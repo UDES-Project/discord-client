@@ -1,7 +1,10 @@
 import { UDES_ContentScript } from "@udes-lib/web-ext"
 
 (async () => {
-    var UDES = new UDES_ContentScript("https://udes.app/api", true)
+
+    var settings = await browser.runtime.sendMessage("extension@udes.app", { action: "UDES_getSettings" })
+    
+    var UDES = new UDES_ContentScript(settings["UDES_serverUrl"], true)
 
     UDES.setMessageContainer(".scrollerInner_e2e187", ".messageContent_f9f2ca span", (messages) => {
         var content = ""

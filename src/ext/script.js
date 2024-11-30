@@ -1,29 +1,8 @@
 import { UDES_Script } from "@udes-lib/web-ext"
 
+const chunkId = "904245"
+
 var UDES = new UDES_Script()
-
-// WebSocket.prototype._send = WebSocket.prototype.send
-
-// WebSocket.prototype.send = function(payload) {
-//     payload = JSON.parse(payload)
-
-//     if (payload.event == "message" && payload.data.content) {
-
-//         UDES.encryptMessage(payload.data.content, "secret", async (pUDESlic_id, key, counter, error) => {
-
-//             if (error) {
-//                 alert("UDES error: " + error)
-//                 return
-//             }
-
-//             payload.data.content = await UDES.messageForm(pUDESlic_id, key, counter)
-//             this._send(JSON.stringify(payload))
-//         })
-
-//     } else {
-//         this._send(JSON.stringify(payload))
-//     }
-// }
 
 const waitFor = setInterval(() => {
     console.error("[UDES] webpackChunkdiscord_app:", window.webpackChunkdiscord_app)
@@ -43,21 +22,21 @@ const waitFor = setInterval(() => {
 
                     console.error("[UDES] Loading...")
 
-                    if (req.c["904245"]) {
-                        console.error("[UDES] req.c['904245'] found:", req.c['904245'])
-                        var f = req.c["904245"].exports.Z
+                    if (req.c[chunkId]) {
+                        console.error(`[UDES] req.c['${chunkId}'] found:`, req.c[chunkId])
+                        var f = req.c[chunkId].exports.Z
                         var oldSend = f.sendMessage
 
                         function send(e, t) {
 
-                            UDES.encryptMessage(t.content, "secret", async (pUDESlic_id, key, counter, error) => {
+                            UDES.encryptMessage(t.content, "secret", async (public_id, key, counter, error) => {
 
                                 if (error) {
                                     alert("UDES error: " + error)
                                     return
                                 }
 
-                                t.content = await UDES.messageForm(pUDESlic_id, key, counter)
+                                t.content = await UDES.messageForm(public_id, key, counter)
                                 oldSend(e, t)
                             })
 
@@ -68,7 +47,7 @@ const waitFor = setInterval(() => {
 
                         console.error("[UDES] Loaded")
                     } else {
-                        console.error("[UDES] req.c['819689'] not found, req: ", req)
+                        console.error(`[UDES] req.c['${chunkId}'] not found, req: `, req)
                     }
                 }
             ]
