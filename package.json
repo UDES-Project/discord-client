@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@udes-lib/web-ext": "^1.2.0",
+    "@udes-lib/web-ext": "^1.2.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
